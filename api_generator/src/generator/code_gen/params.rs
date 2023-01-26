@@ -67,6 +67,16 @@ fn generate_param(tokens: &mut Tokens, e: &ApiEnum) {
     let cfg_attr = e.stability.outer_cfg_attr();
     let cfg_doc = stability_doc(e.stability);
 
+    let mut from_str_branches = quote!();
+    for (rename, variant) in renames.iter().zip(variants.iter()) {
+        from_str_branches.append(quote!( #rename => Ok(Self::#variant), ))
+    }
+
+    let mut to_str_branches = quote!();
+    for (rename, variant) in renames.iter().zip(variants.iter()) {
+        to_str_branches.append(quote!( Self::#variant => #rename.to_string(), ))
+    }
+
     let generated_enum_tokens = quote!(
         #doc
         #cfg_doc
@@ -74,6 +84,24 @@ fn generate_param(tokens: &mut Tokens, e: &ApiEnum) {
         #[derive(Debug, PartialEq, Deserialize, Serialize, Clone, Copy)]
         pub enum #name {
             #(#[serde(rename = #renames)] #variants),*
+        }
+
+        impl FromStr for #name {
+            type Err = &'static str;
+            fn from_str(value_str: &str) -> Result<Self, Self::Err> {
+                match value_str {
+                    #from_str_branches
+                    _ => Err("unknown enum variant")
+                }
+            }
+        }
+
+        impl ToString for #name {
+            fn to_string(&self) -> String {
+                match &self {
+                    #to_str_branches
+                }
+            }
         }
     );
 

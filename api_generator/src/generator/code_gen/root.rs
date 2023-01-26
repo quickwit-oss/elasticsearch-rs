@@ -26,6 +26,7 @@ use crate::generator::*;
 pub fn generate(api: &Api) -> anyhow::Result<String> {
     let mut tokens = quote!(
         use serde::{Serialize, Deserialize};
+        use std::str::FromStr;
         use super::{from_simple_list, to_simple_list, SimpleList, TrackTotalHits};
         use warp::{Filter, Rejection};
     );
