@@ -23,7 +23,7 @@ path-slash = "0.2.1"
 quote = "~0.3"
 reduce = "0.1.2"
 regex = "1.3.1"
-reqwest = "0.11.14"
+reqwest = { version = "0.11", default-features = false, features = ["rustls-tls", "blocking"] }
 semver = "1.0.16"
 serde = "~1"
 serde_json = "~1"

@@ -15,7 +15,7 @@ readme = "../README.md"
 all-features = true
 
 [features]
-default = ["native-tls"]
+default = ["rustls-tls"]
 
 # beta and experimental APIs
 beta-apis = []
@@ -31,7 +31,7 @@ bytes = "^1.0"
 dyn-clone = "~1"
 lazy_static = "1.4"
 percent-encoding = "2.1.0"
-reqwest = { version = "~0.11", default-features = false, features = ["gzip", "json"] }
+reqwest = { version = "0.11", default-features = false, features = ["gzip", "json", "rustls-tls"] }
 url = "^2.1"
 serde = { version = "~1", features = ["derive"] }
 serde_json = "~1"
