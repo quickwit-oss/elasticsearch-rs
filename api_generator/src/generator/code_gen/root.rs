@@ -127,7 +127,7 @@ fn create_query_string_struct_type(name: &str, endpoint_params: &BTreeMap<String
 fn create_struct_field(f: (&String, &Type)) -> syn::Field {
     syn::Field {
         ident: Some(ident(valid_name(&f.0).to_lowercase())),
-        vis: syn::Visibility::Inherited,
+        vis: syn::Visibility::Public,
         attrs: vec![],
         ty: typekind_to_ty(&f.0, &f.1.ty, false, false),
     }
