@@ -1,6 +1,6 @@
 [package]
-name = "quickwit_elastic_api_generation"
-version = "8.7.0-alpha.1"
+name = "quickwit-elastic-api-generation"
+version = "0.0.1"
 edition = "2018"
 publish = false
 license = "Apache-2.0"
